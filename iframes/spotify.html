@@ -29,10 +29,8 @@
     <div id="embed-iframe"></div>
     <script>
       const parsedUrl = new URL(window.location.href);
-      const UrlQueryData = parsedUrl.searchParams.get('data');
-      const {
-        uri
-      } = JSON.parse(UrlQueryData);
+      const UrlQueryData = parsedUrl.searchParams.get("data");
+      const { uri } = JSON.parse(UrlQueryData);
       window.onSpotifyIframeApiReady = (IFrameAPI) => {
         const element = document.getElementById("embed-iframe");
         const options = {
@@ -40,7 +38,11 @@
           height: "100%",
           uri,
         };
-        const callback = (EmbedController) => {};
+        const callback = (EmbedController) => {
+          EmbedController.addListener("ready", () => {
+            EmbedController.play();
+          });
+        };
         IFrameAPI.createController(element, options, callback);
       };
     </script>
