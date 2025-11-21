@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .embed-iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0px !important;
+      }
+      iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+        background-color: #1f1f1f;
+        border-radius: 0px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="embed-iframe"></div>
+    <script>
+      const parsedUrl = new URL(window.location.href);
+      const UrlQueryData = parsedUrl.searchParams.get('data');
+      const {
+        uri
+      } = JSON.parse(UrlQueryData);
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const element = document.getElementById("embed-iframe");
+        const options = {
+          width: "100%",
+          height: "152",
+          uri,
+        };
+        const callback = (EmbedController) => {};
+        IFrameAPI.createController(element, options, callback);
+      };
+    </script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+  </body>
+</html>
